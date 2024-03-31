@@ -1,6 +1,7 @@
 const express = require('express');
 const { PORT } = require("./utils/env");
 const cors = require('cors');
+const apikeyAuthMiddleware = require("./middleware/apikeyAuthMiddleware")
 
 const app = express();
 
@@ -9,6 +10,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(apikeyAuthMiddleware);
 
 require("./startup/routes")(app);
 require("./startup/db")();

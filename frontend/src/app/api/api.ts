@@ -1,4 +1,4 @@
-import { apiBaseUrl } from "../utils/env";
+import { apiBaseUrl, apiKey } from "../utils/env";
 
 interface LoginValues{
   email:string;
@@ -20,10 +20,14 @@ interface Mission {
 
 export const postSignUp = async (uri: string, values: SignUpValues) => {
   try {
+    if (!apiKey) {
+      throw new Error('API key not found in environment variables');
+    }
     const response = await fetch(`${apiBaseUrl}/${uri}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': apiKey,
       },
       body: JSON.stringify(values), 
     });
@@ -37,6 +41,9 @@ export const postSignUp = async (uri: string, values: SignUpValues) => {
 
 export const addMission = async (uri: string, values: Mission) => {
   try {
+    if (!apiKey) {
+      throw new Error('API key not found in environment variables');
+    }
     const token = localStorage.getItem('accessToken');
     if (!token) {
       throw new Error('Access token not found');
@@ -46,7 +53,8 @@ export const addMission = async (uri: string, values: Mission) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token
+        'x-auth-token': token,
+        'x-api-key': apiKey,
       },
       body: JSON.stringify(values),
     });
@@ -65,6 +73,9 @@ export const addMission = async (uri: string, values: Mission) => {
 
 export const updateMission = async (uri: string, values: Mission) => {
   try {
+    if (!apiKey) {
+      throw new Error('API key not found in environment variables');
+    }
     const token = localStorage.getItem('accessToken');
     if (!token) {
       throw new Error('Access token not found');
@@ -74,7 +85,8 @@ export const updateMission = async (uri: string, values: Mission) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token
+        'x-auth-token': token,
+        'x-api-key': apiKey,
       },
       body: JSON.stringify(values),
     });
@@ -93,10 +105,14 @@ export const updateMission = async (uri: string, values: Mission) => {
 
 export const postLogin = async (uri: string, values: LoginValues) => {
   try {
+    if (!apiKey) {
+      throw new Error('API key not found in environment variables');
+    }
     const response = await fetch(`${apiBaseUrl}/${uri}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': apiKey,
       },
       body: JSON.stringify(values), 
     });
@@ -110,10 +126,14 @@ export const postLogin = async (uri: string, values: LoginValues) => {
 
 export const getMission = async (uri:string) => {
     try {
+      if (!apiKey) {
+        throw new Error('API key not found in environment variables');
+      }
       const response = await fetch(`${apiBaseUrl}/${uri}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': apiKey,
         },
       });
   
@@ -131,6 +151,9 @@ export const getMission = async (uri:string) => {
 
   export const deleteMission = async (uri: string) => {
     try {
+      if (!apiKey) {
+        throw new Error('API key not found in environment variables');
+      }
       const token = localStorage.getItem('accessToken');
       if (!token) {
         throw new Error('Access token not found');
@@ -140,7 +163,8 @@ export const getMission = async (uri:string) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': token
+          'x-auth-token': token,
+          'x-api-key': apiKey,
         },
       });
   
