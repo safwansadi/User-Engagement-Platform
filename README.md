@@ -1,5 +1,7 @@
 ## Getting Started
 
+Live Link: https://frontend-userplatform-updated.netlify.app/
+
 To clone repository run:  
 - git clone https://github.com/safwansadi/User-Engagement-Platform.git
 
